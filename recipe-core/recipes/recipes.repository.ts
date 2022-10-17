@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 export const getRecipe = async (recipeId: string): Promise<Recipe> => {
 
     const recipes = await prisma.recipe.findMany();
-    console.log(recipes);
     const recipe: Recipe = { id: recipeId }; 
     return new Promise((resolve, reject) => resolve(recipe));
 }
