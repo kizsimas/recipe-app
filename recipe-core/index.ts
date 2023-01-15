@@ -4,12 +4,16 @@ import recipeController from './recipes/recipes.controller';
 import unitController from './units/units.controller';
 import swaggerUi from "swagger-ui-express";
 import yaml from "yamljs";
+import cors from 'cors';
+
 
 const swaggerFile = yaml.load('./swagger.yaml');
 dotenv.config();
 
 const app = express();
 const port = process.env.SERVER_PORT;
+app.use(cors())
+
 
 app.use("/recipes", recipeController);
 app.use("/units", unitController);
