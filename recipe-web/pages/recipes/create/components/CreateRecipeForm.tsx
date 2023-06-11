@@ -19,7 +19,7 @@ const CreateRecipeForm: React.FC<Props> = (props) => {
         <form onSubmit={handleSubmit(onSubmit)} className={cx('form')}>
           <TextField label="Name" {...register("name", { required: true })} />
           <TextField label="Description" {...register("description", { required: true })} multiline />
-          <TextField label="Serving Count" {...register("defaultServingCount")} />
+          <TextField label="Serving Count" {...register("defaultServingCount")} type="number" />
           <TextField label="Source" {...register("source")} />
           <TextField label="Picture URL" {...register("pictureUrl")} />
 
