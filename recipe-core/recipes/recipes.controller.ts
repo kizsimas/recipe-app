@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Recipe } from "@prisma/client";
 import * as recipeService from './recipes.service';
-import { GetRecipeRequest, GetRecipeResponse } from './recipes.types';
+import { CreateRecipeRequest, GetRecipeResponse, RecipeDto } from './recipes.types';
 const router = express.Router();
 
 router.get('/:recipeId', async (req: Request, res: Response<GetRecipeResponse>) => {
@@ -10,14 +10,14 @@ router.get('/:recipeId', async (req: Request, res: Response<GetRecipeResponse>) 
   res.json({ recipe });
 })
 
-router.get('/', async (req: Request, res: Response<Recipe[]>) => {
+router.get('/', async (req: Request, res: Response<RecipeDto[]>) => {
   const recipe = await recipeService.getAllRecipes(); 
   res.json(recipe);
 })
 
 router.post('/', async (req: Request<CreateRecipeRequest>, res: Response) => {
-  const recipe = req.body as CreateRecipeRequest;
-  const savedRecipe = await recipeService.saveRecipe(recipe);
+  const request = req.body as CreateRecipeRequest;
+  const savedRecipe = await recipeService.saveRecipe(request.recipe);
   res.json(savedRecipe);
 })
 
