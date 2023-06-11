@@ -62,4 +62,3 @@ model RecipeStep {
   stepId Int
   @@id([stepId, recipeId])
 }
-
