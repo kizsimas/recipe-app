@@ -39,6 +39,7 @@ model Recipe {
   source String?
   pictureUrl String?
   recipeProduct RecipeProduct[]
+  recipeSteps RecipeStep[]
 }
 
 model Unit {
@@ -46,3 +47,19 @@ model Unit {
   measurement String
   recipeProduct RecipeProduct[]
 }
+
+model Step {
+  id Int @id @default(autoincrement())
+  title String?
+  description String?
+  recipeSteps RecipeStep[]
+}
+
+model RecipeStep {
+  recipe Recipe @relation(fields: [recipeId], references: [id])
+  recipeId Int
+  step Step @relation(fields: [stepId], references: [id])
+  stepId Int
+  @@id([stepId, recipeId])
+}
+
