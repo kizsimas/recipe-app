@@ -1,14 +1,16 @@
 import * as recipeRepository from './recipes.repository';
-import { Recipe } from "@prisma/client";
+import { Recipe, RecipeProduct } from "@prisma/client";
+import { RecipeDto } from './recipes.types';
 
-export const getRecipe = async (recipeId: number): Promise<Recipe | null> => {
-    return recipeRepository.getRecipe(recipeId);
+export const getRecipe = async (recipeId: number): Promise<RecipeDto | null> => {
+    return (await recipeRepository.getRecipe(recipeId)) as RecipeDto;
 }
 
-export const getAllRecipes = async (): Promise<Recipe[]> => {
-    return recipeRepository.getAllRecipes();
+export const getAllRecipes = async (): Promise<RecipeDto[]> => {
+    return (await recipeRepository.getAllRecipes()).map((recipe) => recipe as RecipeDto);
 }
 
-export const saveRecipe = async (recipe: Recipe): Promise<Recipe> => {
-    return recipeRepository.saveRecipe(recipe);
+export const saveRecipe = async (recipe: RecipeDto): Promise<RecipeDto> => {
+    const savedRecipe = await recipeRepository.saveRecipe(recipe);
+    return savedRecipe as RecipeDto;
 };

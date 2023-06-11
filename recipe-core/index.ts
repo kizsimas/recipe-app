@@ -5,6 +5,7 @@ import unitController from './units/units.controller';
 import swaggerUi from "swagger-ui-express";
 import yaml from "yamljs";
 import cors from 'cors';
+import productsController from './products/products.controller';
 
 
 const swaggerFile = yaml.load('./swagger.yaml');
@@ -17,6 +18,7 @@ app.use(cors())
 
 app.use("/recipes", recipeController);
 app.use("/units", unitController);
+app.use("/products", productsController);
 
 app.use(
   "/swagger",
