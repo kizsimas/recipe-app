@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useQuery } from 'react-query'
 import { RecipeList } from './components/recipeList'
 import {fetchRecipes} from "../../api/recipes.service";
+import Link from "next/link";
 
 const Recipes: NextPage = () => {
   const { data, isLoading, isError } = useQuery('recipes', async () =>  fetchRecipes());
@@ -29,6 +30,7 @@ const Recipes: NextPage = () => {
         <h1 className="text-center text-3xl font-bold underline text-blue-500 mr-2">
           Recipes
         </h1>
+        <Link href={"/recipes/create"}>Create Recipe</Link>
         {renderContent()}
       </main>
     </div>

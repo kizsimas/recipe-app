@@ -1,8 +1,48 @@
 .body {
-  padding: 20px 0px;
+  padding: 20px 0;
 
   .form {
     display: flex;
     flex-direction: column;
+
+    .item {
+      // background-color: #f3f6f5;
+      // background-color: #f9fafa;
+      background-color: #ffffff;
+      margin: 10px 0;
+    }
+
+    .subheader {
+      color: #2d3e4e;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .row {
+      align-items: center;
+      display: flex;
+      margin: 10px 0;
+
+      .row-item {
+        background-color: #ffffff;
+        margin-right: 10px;
+      }
+    }
+
+    .form-button {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16px;
+      gap: 0.8rem;
+      padding: 0.8rem 0.4rem;
+      white-space: nowrap;
+      width: min-content;
+      color: #2d3e4e;
+    }
+
+    .footer {
+      margin-top: 10px;
+    }
   }
 }

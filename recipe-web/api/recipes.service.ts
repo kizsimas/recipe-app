@@ -1,5 +1,5 @@
 import {api} from "./apiService";
-import recipes from "../pages/recipes";
+import {Recipe} from "../pages/recipes/create/components/CreteRecipeForm.types";
 
 const recipesUrl = `/recipes`;
 
@@ -8,7 +8,7 @@ export const fetchRecipes = async () => {
   return data;
 }
 
-export const createRecipe = async (recipe) => {
+export const createRecipe = async (recipe: Recipe) => {
   const { data } = await api.post(recipesUrl, {
     recipe: {
       ...recipe,
