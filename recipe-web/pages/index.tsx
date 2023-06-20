@@ -17,7 +17,7 @@ const Home: NextPage = () => {
           Cool recipe app
         </h1>
         <Link href="/recipes">
-          <a>Recipes</a>
+          Recipes
         </Link>
       </main>
     </div>

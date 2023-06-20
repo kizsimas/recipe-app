@@ -16,7 +16,7 @@ router.get('/', async (req: Request, res: Response<RecipeDto[]>) => {
 })
 
 router.post('/', async (req: Request<CreateRecipeRequest>, res: Response) => {
-  const request = req.body as CreateRecipeRequest;
+  const request = req.body;
   const savedRecipe = await recipeService.saveRecipe(request.recipe);
   res.json(savedRecipe);
 })

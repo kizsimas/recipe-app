@@ -6,12 +6,19 @@ import swaggerUi from "swagger-ui-express";
 import yaml from "yamljs";
 import cors from 'cors';
 import productsController from './products/products.controller';
+import bodyParser from 'body-parser';
+const app = express();
 
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 const swaggerFile = yaml.load('./swagger.yaml');
 dotenv.config();
 
-const app = express();
 const port = process.env.SERVER_PORT;
 app.use(cors())
 
