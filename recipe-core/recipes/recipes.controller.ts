@@ -10,14 +10,27 @@ router.get('/:recipeId', async (req: Request, res: Response<GetRecipeResponse>) 
   res.json({ recipe });
 })
 
-router.get('/', async (req: Request, res: Response<RecipeDto[]>) => {
+router.get('/', async (req: Request, res: Response<Recipe[]>) => {
   const recipe = await recipeService.getAllRecipes(); 
   res.json(recipe);
 })
 
 router.post('/', async (req: Request<CreateRecipeRequest>, res: Response) => {
-  const request = req.body;
-  const savedRecipe = await recipeService.saveRecipe(request.recipe);
+  const request = req.body.recipe;
+  const recipe: RecipeDto = {
+    name: request.name,
+    description: request.description,
+    defaultServingCount: request.defaultServingCount,
+    source: request.source,
+    pictureUrl: request.pictureUrl,
+    recipeProduct: request.ingredients.map((ingredient: any) => ({
+      value: ingredient.count,
+      productId: 1, // hardcoded for now
+      unitId: 1 // hardcoded for now
+    }))
+  }
+
+  const savedRecipe = await recipeService.saveRecipe(recipe);
   res.json(savedRecipe);
 })
 

@@ -12,4 +12,11 @@ export interface GetRecipeResponse {
     recipe: RecipeDto | null;
 }
 
-export type RecipeDto = Recipe & { recipeProduct: RecipeProduct[]}
+export type RecipeDto ={ 
+    name: string
+    description: string
+    defaultServingCount: number | null
+    source: string | null
+    pictureUrl: string | null
+    recipeProduct: RecipeProduct[]
+}
