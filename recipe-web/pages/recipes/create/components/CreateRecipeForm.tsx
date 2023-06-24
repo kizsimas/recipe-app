@@ -4,7 +4,7 @@ import {Controller, useFieldArray, useForm} from "react-hook-form";
 import {TextField} from "@mui/material";
 import {createRecipe} from "../../../../api/recipes.service";
 import Button from "../../../../components/Button/Button";
-import {Recipe} from "./CreteRecipeForm.types";
+import {Recipe, Step} from "./CreteRecipeForm.types";
 
 const cx = classNames.bind(styles);
 
@@ -30,7 +30,10 @@ const CreateRecipeForm: React.FC = () => {
         ...ingredient,
         count: Number.parseInt(ingredient.count)
       })),
-      steps: data.steps,
+      steps: data.steps.map((step: Step) => ({
+        ...step,
+        title: 'title'
+      })),
     };
     createRecipe(recipe);
   }

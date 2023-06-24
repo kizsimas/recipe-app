@@ -1,9 +1,9 @@
-import { PrismaClient, Recipe } from "@prisma/client";
-import { RecipeDto } from "./recipes.types";
+import { PrismaClient, Recipe, Step } from "@prisma/client";
+import { RecipeDto, StepDto } from "./recipes.types";
 
 const prisma = new PrismaClient();
 
-export const getRecipe = async (recipeId: number): Promise<RecipeDto| null> => {
+export const getRecipe = async (recipeId: number): Promise<Recipe| null> => {
     const recipe = await prisma.recipe.findFirst({
         where: {
             id: recipeId
@@ -30,9 +30,11 @@ export const saveRecipe = async (recipe: RecipeDto): Promise<Recipe> => {
             ...recipe,
             recipeProduct: {
                 create: [...recipe.recipeProduct]
+            },
+            recipeSteps: {
+                create: recipe.recipeSteps
             }
-        }
-
+        },
     });
     return created;
 }
