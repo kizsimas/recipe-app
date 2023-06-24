@@ -2,8 +2,8 @@ import { Recipe } from '@prisma/client';
 import * as recipeRepository from './recipes.repository';
 import { RecipeDto } from './recipes.types';
 
-export const getRecipe = async (recipeId: number): Promise<RecipeDto | null> => {
-    return (await recipeRepository.getRecipe(recipeId)) as RecipeDto;
+export const getRecipe = async (recipeId: number): Promise<Recipe | null> => {
+    return (await recipeRepository.getRecipe(recipeId)) as Recipe;
 }
 
 export const getAllRecipes = async (): Promise<Recipe[]> => {

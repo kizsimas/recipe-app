@@ -27,7 +27,8 @@ router.post('/', async (req: Request<CreateRecipeRequest>, res: Response) => {
       value: ingredient.count,
       productId: 1, // hardcoded for now
       unitId: 1 // hardcoded for now
-    }))
+    })),
+    recipeSteps: request.steps || []
   }
 
   const savedRecipe = await recipeService.saveRecipe(recipe);

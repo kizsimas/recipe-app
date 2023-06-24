@@ -9,7 +9,7 @@ export interface CreateRecipeResponse {
 }
 
 export interface GetRecipeResponse {
-    recipe: RecipeDto | null;
+    recipe: Recipe | null;
 }
 
 export type RecipeDto ={ 
@@ -19,4 +19,10 @@ export type RecipeDto ={
     source: string | null
     pictureUrl: string | null
     recipeProduct: RecipeProduct[]
+    recipeSteps: StepDto[]
+}
+
+export type StepDto = {
+    title: string;
+    description: string;
 }
