@@ -1,23 +1,25 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { useQuery } from 'react-query'
-import { RecipeList } from './components/recipeList'
+import  RecipeList from '../../components/RecipeList/recipeList'
 import {fetchRecipes} from "../../api/recipes.service";
 import Link from "next/link";
+import { Recipe } from '../../components/CreateRecipeForm/CreteRecipeForm.types';
 
-const Recipes: NextPage = () => {
-  const { data, isLoading, isError } = useQuery('recipes', async () =>  fetchRecipes());
+export const getServerSideProps: GetServerSideProps<{
+  recipes: Recipe[]
+}> = async () =>  {
+  const recipes = await fetchRecipes();
+  return {
+    props: {
+      recipes
+    }
+  }
+}
+
+const Recipes: NextPage<{recipes: Recipe[]}> = (props) => {
 
   const renderContent = () => {
-    if (isLoading) {
-      return <>LOADING</>;
-    }
-
-    if (isError) {
-      return <>ERROR</>;
-    }
-
-    return <RecipeList recipes={data} />;
+    return <RecipeList recipes={props.recipes} />;
   }
 
   return (

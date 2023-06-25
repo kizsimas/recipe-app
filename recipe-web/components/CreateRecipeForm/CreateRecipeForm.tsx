@@ -2,9 +2,9 @@ import classNames from "classnames/bind"
 import styles from "./CreateRecipeForm.module.scss"
 import {Controller, useFieldArray, useForm} from "react-hook-form";
 import {TextField} from "@mui/material";
-import {createRecipe} from "../../../../api/recipes.service";
-import Button from "../../../../components/Button/Button";
 import {Recipe, Step} from "./CreteRecipeForm.types";
+import { createRecipe } from "../../api/recipes.service";
+import Button from "../Button/Button";
 
 const cx = classNames.bind(styles);
 

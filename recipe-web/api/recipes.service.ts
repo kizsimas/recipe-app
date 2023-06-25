@@ -1,5 +1,5 @@
+import { Recipe } from "../components/CreateRecipeForm/CreteRecipeForm.types";
 import {api} from "./apiService";
-import {Recipe} from "../pages/recipes/create/components/CreteRecipeForm.types";
 
 const recipesUrl = `/recipes`;
 

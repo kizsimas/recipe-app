@@ -1,12 +1,30 @@
-import {NextPage} from "next";
+import {GetServerSideProps, NextPage} from "next";
 import Head from "next/head";
 import classNames from "classnames/bind";
-import styles from "./CreateRecipe.module.scss";
-import CreateRecipeForm from "./components/CreateRecipeForm";
+import styles from "../../../styles/CreateRecipe.module.scss"
+import { getUnitsData } from "../../../lib/unitsLoader";
+import { Unit } from "../../../types/unit.types";
+import { Product } from "../../../types/product.types";
+import { fetchProducts } from "../../../api/products.service";
+import CreateRecipeForm from "../../../components/CreateRecipeForm/CreateRecipeForm";
+
+export const getServerSideProps: GetServerSideProps<{
+  units: Unit[],
+  products: Product[]
+}> = async () =>  {
+  const units = await getUnitsData();
+  const products = await fetchProducts();
+  return {
+    props: {
+      units,
+      products
+    }
+  }
+}
 
 const cx = classNames.bind(styles);
 
-const CreateRecipe: NextPage = () => {
+const CreateRecipe: NextPage<{units: Unit[], products: Product[]}> = (props) => {
   return (
       <div>
         <Head>
