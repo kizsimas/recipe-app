@@ -25,6 +25,7 @@ export const getServerSideProps: GetServerSideProps<{
 const cx = classNames.bind(styles);
 
 const CreateRecipe: NextPage<{units: Unit[], products: Product[]}> = (props) => {
+  const { units, products } = props;
   return (
       <div>
         <Head>
@@ -37,7 +38,7 @@ const CreateRecipe: NextPage<{units: Unit[], products: Product[]}> = (props) => 
           </h1>
 
           <div>
-            <CreateRecipeForm />
+            <CreateRecipeForm units={units} products={products} />
           </div>
         </main>
       </div>

@@ -1,14 +1,24 @@
 import classNames from "classnames/bind"
 import styles from "./CreateRecipeForm.module.scss"
 import {Controller, useFieldArray, useForm} from "react-hook-form";
-import {TextField} from "@mui/material";
-import {Recipe, Step} from "./CreteRecipeForm.types";
+import {Select, TextField} from "@mui/material";
+import {Recipe} from "./CreteRecipeForm.types";
 import { createRecipe } from "../../api/recipes.service";
 import Button from "../Button/Button";
+import {Unit} from "../../types/unit.types";
+import {Product} from "../../types/product.types";
+import MenuItem from '@mui/material/MenuItem';
+import React from "react";
 
 const cx = classNames.bind(styles);
 
-const CreateRecipeForm: React.FC = () => {
+interface CreateRecipeFormProps {
+  units: Unit[];
+  products: Product[];
+}
+
+const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFormProps) => {
+  const { units, products } = props;
   const { control, handleSubmit, formState: { errors } } = useForm();
   const { fields: ingredients, append: appendIngredient, remove: removeIngredient} = useFieldArray({
     control,
@@ -21,18 +31,11 @@ const CreateRecipeForm: React.FC = () => {
 
   const onSubmit = (data: any) => {
     const recipe: Recipe = {
-      name: data.name,
-      description: data.description,
+      ...data,
       defaultServingCount: Number.parseInt(data.defaultServingCount),
-      source: data.source,
-      pictureUrl: data.pictureUrl,
       ingredients: data.ingredients.map((ingredient: any) => ({
         ...ingredient,
         count: Number.parseInt(ingredient.count)
-      })),
-      steps: data.steps.map((step: Step) => ({
-        ...step,
-        title: 'title'
       })),
     };
     createRecipe(recipe);
@@ -59,18 +62,26 @@ const CreateRecipeForm: React.FC = () => {
             {ingredients.map((item, index) => (
                 <li key={item.id} className={cx('row')}>
                   <Controller
-                      render={({ field }) => <TextField {...field} label="Ingredient" className={cx('row-item')} />}
-                      name={`ingredients.${index}.value`}
+                      render={({ field }) => <Select {...field} label="Ingredient" className={cx('row-item')}>
+                        {
+                          products?.map((product) => <MenuItem key={product.id} value={product.id}>{product.name}</MenuItem>)
+                        }
+                      </Select>}
+                      name={`ingredients[${index}].value`}
                       control={control}
                   />
                   <Controller
                       render={({ field }) => <TextField {...field} label="Count" type="number" className={cx('row-item')} />}
-                      name={`ingredients.${index}.count`}
+                      name={`ingredients[${index}].count`}
                       control={control}
                   />
                   <Controller
-                      render={({ field }) => <TextField {...field} label="Unit" className={cx('row-item')} />}
-                      name={`ingredients.${index}.unit`}
+                      render={({ field }) => <Select {...field} value={undefined} label="Unit" className={cx('row-item')}>
+                        {
+                          units?.map((unit) => <MenuItem key={unit.id} value={unit.id}>{unit.measurement}</MenuItem>)
+                        }
+                      </Select>}
+                      name={`ingredients[${index}].unit`}
                       control={control}
                   />
                   <button type="button" onClick={() => removeIngredient(index)} className={cx('form-button')}>Delete</button>
