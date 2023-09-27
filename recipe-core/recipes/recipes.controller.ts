@@ -23,12 +23,12 @@ router.post('/', async (req: Request<CreateRecipeRequest>, res: Response) => {
     defaultServingCount: request.defaultServingCount,
     source: request.source,
     pictureUrl: request.pictureUrl,
-    recipeProduct: request.ingredients.map((ingredient: any) => ({
+    recipeProduct: request.recipeProduct.map((ingredient: any) => ({
       value: ingredient.count,
-      productId: 1, // hardcoded for now
-      unitId: 1 // hardcoded for now
+      productId: ingredient.productId,
+      unitId: ingredient.unitId
     })),
-    recipeSteps: request.steps || []
+    recipeSteps: request.recipeSteps || []
   }
 
   const savedRecipe = await recipeService.saveRecipe(recipe);
