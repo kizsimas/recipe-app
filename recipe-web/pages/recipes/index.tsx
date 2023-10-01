@@ -1,9 +1,13 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import  RecipeList from '../../components/RecipeList/recipeList'
 import {fetchRecipes} from "../../api/recipes.service";
 import Link from "next/link";
 import { Recipe } from '../../components/CreateRecipeForm/CreteRecipeForm.types';
+import classNames from "classnames/bind";
+import styles from "./Recipes.module.scss";
+import Card from "../../components/Card";
+
+const cx = classNames.bind(styles);
 
 export const getServerSideProps: GetServerSideProps<{
   recipes: Recipe[]
@@ -17,21 +21,27 @@ export const getServerSideProps: GetServerSideProps<{
 }
 
 const Recipes: NextPage<{recipes: Recipe[]}> = (props) => {
+  const { recipes } = props;
 
   const renderContent = () => {
-    return <RecipeList recipes={props.recipes} />;
+    return <div className={cx('recipes')}>
+      {
+        recipes.map((recipe: any) => <Card key={recipe.id} title={recipe.name} description={recipe.description} pictureUrl={recipe.pictureUrl} />)
+      }
+    </div>
   }
 
   return (
     <div>
       <Head>
-        <title >Recipes</title>
+        <title>Recipes</title>
       </Head>
 
-      <main>
-        <h1 className="text-center text-3xl font-bold underline text-blue-500 mr-2">
+      <main className={cx('body')}>
+        <h1 className={cx('heading')}>
           Recipes
         </h1>
+
         <Link href={"/recipes/create"}>Create Recipe</Link>
         {renderContent()}
       </main>

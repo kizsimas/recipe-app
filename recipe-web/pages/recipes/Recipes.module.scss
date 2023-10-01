@@ -1,0 +1,14 @@
+.body {
+  padding: 20px 22px;
+
+  .heading {
+    color: #2d3e4e;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .recipes {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

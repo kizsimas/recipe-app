@@ -1,0 +1,36 @@
+.body {
+  padding: 20px 22px;
+  background-color: #ffffff;
+  flex-direction: column;
+  margin: 10px;
+  max-width: 350px;
+  max-height: 580px;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .title {
+    color: #2d3e4e;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
+  .picture {
+    min-width: 230px;
+    min-height: 350px;
+  }
+}
