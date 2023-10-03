@@ -1,7 +1,7 @@
 import classNames from "classnames/bind"
 import styles from "./CreateRecipeForm.module.scss"
-import {Controller, useFieldArray, useForm} from "react-hook-form";
-import {Select, TextField} from "@mui/material";
+import {Controller, Form, useFieldArray, useForm} from "react-hook-form";
+import {FormControl, InputLabel, Select, TextField} from "@mui/material";
 import {Recipe} from "./CreteRecipeForm.types";
 import { createRecipe } from "../../api/recipes.service";
 import Button from "../Button/Button";
@@ -62,11 +62,16 @@ const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFo
             {ingredients.map((item, index) => (
                 <li key={item.id} className={cx('row')}>
                   <Controller
-                      render={({ field }) => <Select {...field} label="Ingredient" className={cx('row-item')}>
-                        {
-                          products?.map((product) => <MenuItem key={product.id} value={product.id}>{product.name}</MenuItem>)
-                        }
-                      </Select>}
+                      render={({field}) =>
+                          <FormControl className={cx('row-item')}>
+                            <InputLabel>Ingredient</InputLabel>
+                            <Select {...field}>
+                              {
+                                products?.map((product) => <MenuItem key={product.id}
+                                                                     value={product.id}>{product.name}</MenuItem>)
+                              }
+                            </Select>
+                          </FormControl>}
                       name={`ingredients[${index}].value`}
                       control={control}
                   />
@@ -76,11 +81,16 @@ const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFo
                       control={control}
                   />
                   <Controller
-                      render={({ field }) => <Select {...field} value={undefined} label="Unit" className={cx('row-item')}>
-                        {
-                          units?.map((unit) => <MenuItem key={unit.id} value={unit.id}>{unit.measurement}</MenuItem>)
-                        }
-                      </Select>}
+                      render={({field}) =>
+                          <FormControl className={cx('row-item')}>
+                            <InputLabel>Unit</InputLabel>
+                            <Select {...field} value={undefined}>
+                              {
+                                units?.map((unit) => <MenuItem key={unit.id}
+                                                               value={unit.id}>{unit.measurement}</MenuItem>)
+                              }
+                            </Select>
+                          </FormControl>}
                       name={`ingredients[${index}].unit`}
                       control={control}
                   />
