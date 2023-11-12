@@ -1,4 +1,5 @@
 import { PrismaClient, Product } from "@prisma/client";
+import { ProductDto } from "./products.types";
 
 const prisma = new PrismaClient();
 
@@ -16,7 +17,7 @@ export const getAllProducts = async (): Promise<Product[]> => {
     return products;
 }
 
-export const saveProduct = async (product: Product): Promise<Product> => {
+export const saveProduct = async (product: ProductDto): Promise<Product> => {
     const created = await prisma.product.create({
         data: product
     });

@@ -22,6 +22,7 @@ const Header = (): ReactElement => {
     <div className={cx('menu-items')}>
       {renderLink('/', 'Home')}
       {renderLink('/recipes', 'Recipes')}
+      {renderLink('/products', 'Products')}
     </div>
   </div>);
 }

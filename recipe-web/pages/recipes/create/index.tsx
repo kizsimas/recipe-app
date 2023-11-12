@@ -9,7 +9,8 @@ import { fetchProducts } from "../../../api/products.service";
 import CreateRecipeForm from "../../../components/CreateRecipeForm/CreateRecipeForm";
 import Modal from "../../../components/Modal/Modal";
 import {useState} from "react";
-import {DialogContentText, TextField} from "@mui/material";
+import {Dialog, DialogContentText, TextField} from "@mui/material";
+import AddIngredientDialog from "./AddIngredientDialog";
 
 export const getServerSideProps: GetServerSideProps<{
   units: Unit[],
@@ -28,8 +29,15 @@ export const getServerSideProps: GetServerSideProps<{
 const cx = classNames.bind(styles);
 
 const CreateRecipe: NextPage<{units: Unit[], products: Product[]}> = (props) => {
-  const { units, products } = props;
+  const { units } = props;
+  const [products, setProducts] = useState(props.products);
   const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
+
+
+  const handleIngredientCreated = async () => {
+    setIsIngredientModalOpen(false);
+    setProducts(await fetchProducts());
+  }
 
   return (
       <div>
@@ -46,15 +54,7 @@ const CreateRecipe: NextPage<{units: Unit[], products: Product[]}> = (props) => 
             <CreateRecipeForm units={units} products={products} isIngredientModalOpen={isIngredientModalOpen} setIsIngredientModalOpen={setIsIngredientModalOpen} />
           </div>
         </main>
-        <Modal isOpen={isIngredientModalOpen} handleClose={() => setIsIngredientModalOpen(false)} body={<>
-          <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="New Ingredient"
-              fullWidth
-              variant="standard"
-          /></>} handleSave={() => {}} title="Create Ingredient"/>
+        <AddIngredientDialog isOpen={isIngredientModalOpen} onClose={() => setIsIngredientModalOpen(false)} onCreated={handleIngredientCreated}/>
       </div>
   )
 }
