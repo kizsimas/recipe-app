@@ -7,6 +7,9 @@ import { Unit } from "../../../types/unit.types";
 import { Product } from "../../../types/product.types";
 import { fetchProducts } from "../../../api/products.service";
 import CreateRecipeForm from "../../../components/CreateRecipeForm/CreateRecipeForm";
+import Modal from "../../../components/Modal/Modal";
+import {useState} from "react";
+import {DialogContentText, TextField} from "@mui/material";
 
 export const getServerSideProps: GetServerSideProps<{
   units: Unit[],
@@ -26,6 +29,8 @@ const cx = classNames.bind(styles);
 
 const CreateRecipe: NextPage<{units: Unit[], products: Product[]}> = (props) => {
   const { units, products } = props;
+  const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
+
   return (
       <div>
         <Head>
@@ -38,9 +43,18 @@ const CreateRecipe: NextPage<{units: Unit[], products: Product[]}> = (props) => 
           </h1>
 
           <div>
-            <CreateRecipeForm units={units} products={products} />
+            <CreateRecipeForm units={units} products={products} isIngredientModalOpen={isIngredientModalOpen} setIsIngredientModalOpen={setIsIngredientModalOpen} />
           </div>
         </main>
+        <Modal isOpen={isIngredientModalOpen} handleClose={() => setIsIngredientModalOpen(false)} body={<>
+          <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="New Ingredient"
+              fullWidth
+              variant="standard"
+          /></>} handleSave={() => {}} title="Create Ingredient"/>
       </div>
   )
 }

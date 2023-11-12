@@ -1,24 +1,26 @@
 import classNames from "classnames/bind"
 import styles from "./CreateRecipeForm.module.scss"
 import {Controller, Form, useFieldArray, useForm} from "react-hook-form";
-import {FormControl, InputLabel, Select, TextField} from "@mui/material";
+import {Autocomplete, FormControl, InputLabel, Select, TextField} from "@mui/material";
 import {Recipe} from "./CreteRecipeForm.types";
 import { createRecipe } from "../../api/recipes.service";
 import Button from "../Button/Button";
 import {Unit} from "../../types/unit.types";
 import {Product} from "../../types/product.types";
 import MenuItem from '@mui/material/MenuItem';
-import React from "react";
+import React, {useState} from "react";
 
 const cx = classNames.bind(styles);
 
 interface CreateRecipeFormProps {
   units: Unit[];
   products: Product[];
+  isIngredientModalOpen: boolean;
+  setIsIngredientModalOpen: (value: boolean) => void;
 }
 
 const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFormProps) => {
-  const { units, products } = props;
+  const { units, products, isIngredientModalOpen, setIsIngredientModalOpen } = props;
   const { control, handleSubmit, formState: { errors } } = useForm();
   const { fields: ingredients, append: appendIngredient, remove: removeIngredient} = useFieldArray({
     control,
@@ -62,16 +64,18 @@ const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFo
             {ingredients.map((item, index) => (
                 <li key={item.id} className={cx('row')}>
                   <Controller
-                      render={({field}) =>
-                          <FormControl className={cx('row-item')}>
-                            <InputLabel>Ingredient</InputLabel>
-                            <Select {...field}>
-                              {
-                                products?.map((product) => <MenuItem key={product.id}
-                                                                     value={product.id}>{product.name}</MenuItem>)
-                              }
-                            </Select>
-                          </FormControl>}
+                      render={({field}) => <Autocomplete
+                          {...field}
+                          disablePortal
+                          id="ingredients"
+                          options={products.map(product => ({
+                            id: product.id,
+                            label: product.name
+                          }))}
+                          renderInput={(params) => <TextField {...params} label="Ingredient" />}
+                          className={cx('row-item')}
+                          noOptionsText={<Button onClick={() => setIsIngredientModalOpen(true)}>Add New Ingredient</Button>}
+                      />}
                       name={`ingredients[${index}].value`}
                       control={control}
                   />
@@ -81,16 +85,17 @@ const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFo
                       control={control}
                   />
                   <Controller
-                      render={({field}) =>
-                          <FormControl className={cx('row-item')}>
-                            <InputLabel>Unit</InputLabel>
-                            <Select {...field} value={undefined}>
-                              {
-                                units?.map((unit) => <MenuItem key={unit.id}
-                                                               value={unit.id}>{unit.measurement}</MenuItem>)
-                              }
-                            </Select>
-                          </FormControl>}
+                      render={({field}) => <Autocomplete
+                          {...field}
+                          disablePortal
+                          id="units"
+                          options={units.map(unit => ({
+                            id: unit.id,
+                            label: unit.measurement
+                          }))}
+                          renderInput={(params) => <TextField {...params} label="Unit" />}
+                          className={cx('row-item')}
+                      />}
                       name={`ingredients[${index}].unit`}
                       control={control}
                   />
