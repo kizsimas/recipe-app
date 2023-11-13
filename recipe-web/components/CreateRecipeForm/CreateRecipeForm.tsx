@@ -68,6 +68,7 @@ const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFo
                           {...field}
                           disablePortal
                           id="ingredients"
+                          onChange={(_, data) => field.onChange(data.id)}
                           options={products.map(product => ({
                             id: product.id,
                             label: product.name
@@ -89,6 +90,7 @@ const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFo
                           {...field}
                           disablePortal
                           id="units"
+                          onChange={(_, data) => field.onChange(data.id)}
                           options={units.map(unit => ({
                             id: unit.id,
                             label: unit.measurement
