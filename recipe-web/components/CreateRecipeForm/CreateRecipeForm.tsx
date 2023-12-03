@@ -1,14 +1,14 @@
 import classNames from "classnames/bind"
 import styles from "./CreateRecipeForm.module.scss"
-import {Controller, Form, useFieldArray, useForm} from "react-hook-form";
-import {Autocomplete, FormControl, InputLabel, Select, TextField} from "@mui/material";
+import {Controller, useFieldArray, useForm} from "react-hook-form";
+import {Autocomplete, TextField} from "@mui/material";
 import {Recipe} from "./CreteRecipeForm.types";
 import { createRecipe } from "../../api/recipes.service";
 import Button from "../Button/Button";
 import {Unit} from "../../types/unit.types";
 import {Product} from "../../types/product.types";
-import MenuItem from '@mui/material/MenuItem';
-import React, {useState} from "react";
+import React from "react";
+import {useRouter} from "next/router";
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +20,7 @@ interface CreateRecipeFormProps {
 }
 
 const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFormProps) => {
+  const router = useRouter();
   const { units, products, isIngredientModalOpen, setIsIngredientModalOpen } = props;
   const { control, handleSubmit, formState: { errors } } = useForm();
   const { fields: ingredients, append: appendIngredient, remove: removeIngredient} = useFieldArray({
@@ -40,7 +41,7 @@ const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFo
         count: Number.parseInt(ingredient.count)
       })),
     };
-    createRecipe(recipe);
+    createRecipe(recipe).then(() => router.push('/recipes'));
   }
 
   const renderFormField = (fieldName: string, label: string, isMultiline?: boolean, type?: string) => {

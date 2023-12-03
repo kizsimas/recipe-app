@@ -38,3 +38,12 @@ export const saveRecipe = async (recipe: RecipeDto): Promise<Recipe> => {
     });
     return created;
 }
+
+export const deleteRecipe = async (recipeId: number): Promise<Recipe> => {
+    const recipe = await prisma.recipe.delete({
+        where: {
+            id: recipeId
+        },
+    });
+    return recipe;
+}

@@ -10,6 +10,6 @@ export const getAllgetProducts = async (): Promise<Product[]> => {
     return productRepository.getAllProducts();
 }
 
-export const saveProduct= async (product: ProductDto): Promise<Product> => {
+export const saveProduct = async (product: ProductDto): Promise<Product> => {
     return productRepository.saveProduct(product);
 };

@@ -6,11 +6,9 @@ import { getUnitsData } from "../../../lib/unitsLoader";
 import { Unit } from "../../../types/unit.types";
 import { Product } from "../../../types/product.types";
 import { fetchProducts } from "../../../api/products.service";
-import CreateRecipeForm from "../../../components/CreateRecipeForm/CreateRecipeForm";
-import Modal from "../../../components/Modal/Modal";
 import {useState} from "react";
-import {Dialog, DialogContentText, TextField} from "@mui/material";
 import AddIngredientDialog from "./AddIngredientDialog";
+import CreateRecipeForm from "../../../components/CreateRecipeForm/CreateRecipeForm";
 
 export const getServerSideProps: GetServerSideProps<{
   units: Unit[],
@@ -32,7 +30,6 @@ const CreateRecipe: NextPage<{units: Unit[], products: Product[]}> = (props) => 
   const { units } = props;
   const [products, setProducts] = useState(props.products);
   const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
-
 
   const handleIngredientCreated = async () => {
     setIsIngredientModalOpen(false);

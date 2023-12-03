@@ -35,4 +35,11 @@ router.post('/', async (req: Request<CreateRecipeRequest>, res: Response) => {
   res.json(savedRecipe);
 })
 
+router.delete('/:recipeId', async (req: Request, res: Response<Recipe>) => {
+  const recipeId = req.params.recipeId;
+  const recipe = await recipeService.deleteRecipe(parseInt(recipeId));
+
+  res.json(recipe);
+})
+
 export default router;
