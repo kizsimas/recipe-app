@@ -2,6 +2,16 @@
   padding: 0 2rem;
 }
 
+.dogs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.suo {
+  margin: 30px;
+  height: 220px;
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
@@ -10,7 +20,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("http://192.168.1.8/images/so.png");
   background-size: 10%;
   background-repeat: no-repeat;
   background-position: 50% 20%;
