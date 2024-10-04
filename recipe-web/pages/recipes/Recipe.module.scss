@@ -1,0 +1,108 @@
+.main {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    width: 90%;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between; /* Ensures that content is aligned on both sides */
+    gap: 2rem; /* Adds space between the two columns */
+}
+
+.left-column {
+    width: 60%; /* Left column takes up 65% of the width */
+}
+
+.right-column {
+    width: 40%; /* Right column takes up 30% of the width */
+}
+
+.header {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
+    color: #333;
+    background-color: #f8f8f8;
+    border-bottom: 2px solid #ccc;
+}
+
+.description-container {
+    display: flex;
+    margin-bottom: 2rem;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.image {
+    width: 35%;
+    background-color: #ddd;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.picture {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.description {
+    width: 65%;
+    padding: 1.5rem;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.products {
+    padding: 1rem;
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.product-item {
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    padding: 0.75rem;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.steps {
+    padding: 1rem;
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.step-item {
+    background-color: #fff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.step-item-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.step-item-description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+}

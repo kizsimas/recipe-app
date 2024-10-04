@@ -23,6 +23,7 @@ const Header = (): ReactElement => {
       {renderLink('/', 'Home')}
       {renderLink('/recipes', 'Recipes')}
       {renderLink('/products', 'Products')}
+      {renderLink('/plans', 'Plans')}
     </div>
   </div>);
 }

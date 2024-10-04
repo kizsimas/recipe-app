@@ -1,0 +1,42 @@
+.mainContainer {
+    height: 80vh;
+    background-color: red;
+    display: flex;
+}
+
+.productsContainer {
+    height: 100%;
+    flex: 2;
+    background-color: blue;
+}
+
+.mealsContainer {
+    height: 100%;
+    flex: 2;
+    background-color: green;
+}
+
+.sidebar {
+    height: 100%;
+    flex: 1;
+    background-color: orange;
+}
+
+.sidebar-header {
+    padding: 10px;
+    height: 50px;
+    width: 100%;
+    background-color: yellow;
+    display: flex;
+    justify-content: space-between;
+}
+
+.productField {
+    display: flex;
+    background-color: orange;
+}
+
+.productFieldItem {
+    margin: 2px;
+    flex: 1
+}

@@ -9,16 +9,24 @@ export const getRecipe = async (recipeId: number): Promise<Recipe| null> => {
             id: recipeId
         },
         include: {
-            recipeProduct: true
+            recipeProduct: {
+                include: {
+                    product: true,
+                    unit: true
+                }
+            },
+            recipeSteps: true
         }
     });
+
     return recipe;
 }
 
 export const getAllRecipes = async (): Promise<Recipe[]> => {
     const recipes = await prisma.recipe.findMany({
         include: {
-            recipeProduct: true
+            recipeProduct: true,
+            recipeSteps: true
         }
     });
     return recipes;

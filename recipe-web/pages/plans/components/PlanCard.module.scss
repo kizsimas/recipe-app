@@ -1,0 +1,25 @@
+.planCard {
+    margin: 10px;
+    width: 20vw;
+    height: 60vh;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: aquamarine;
+}
+.nameContainer {
+    width: 100%;
+    height: 10%;
+    background-color: darkturquoise;
+}
+
+.groupsContainer {
+    width: 100%;
+    height: 60%;
+    background-color: firebrick;
+}
+
+.productsContainer {
+    width: 100%;
+    height: 30%;
+    background-color: tomato;
+}

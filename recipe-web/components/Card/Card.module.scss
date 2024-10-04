@@ -5,13 +5,26 @@
   margin: 10px;
   max-width: 350px;
   max-height: 580px;
+  width: 25vw;
 
-  img {
-    max-width: 100%;
-    height: auto;
+  .image {
+    height: 50%;
+    width: 100%;
+    overflow: hidden;
+    .picture {
+      object-fit: contain;
+      overflow: hidden;
+    }
   }
 
+
+  .controls {
+    height: 10%;
+  }
+
+
   .title {
+    height: 10%;
     color: #2d3e4e;
     font-size: 16px;
     font-weight: bold;
@@ -23,14 +36,10 @@
   }
 
   .description {
+    height: 30%;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
-  }
-
-  .picture {
-    min-width: 230px;
-    min-height: 350px;
   }
 }

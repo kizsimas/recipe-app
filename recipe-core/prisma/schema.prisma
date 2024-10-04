@@ -1,57 +1,95 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator client {
-  provider = "prisma-client-js"
-}
+  generator client {
+    provider = "prisma-client-js"
+  }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
+  datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+  }
 
-model Product {
-  id Int @id @default(autoincrement())
-  name String
-  fibers Decimal?
-  fats Decimal?
-  carbs Decimal?
-  proteins Decimal?
-  recipeProduct RecipeProduct[]
-}
+  model Product {
+    id Int @id @default(autoincrement())
+    name String
+    fibers Decimal?
+    fats Decimal?
+    carbs Decimal?
+    proteins Decimal?
+    recipeProduct RecipeProduct[]
+    planProduct PlanProduct[]
+  }
 
-model RecipeProduct {
-  product Product @relation(fields: [productId], references: [id])
-  productId Int
-  recipe Recipe @relation(fields: [recipeId], references: [id])
-  recipeId Int
-  unit Unit @relation(fields: [unitId], references: [id])
-  unitId Int
-  value Decimal
-  @@id([productId, recipeId])
-}
+  model RecipeProduct {
+    product Product @relation(fields: [productId], references: [id])
+    productId Int
+    recipe Recipe @relation(fields: [recipeId], references: [id])
+    recipeId Int
+    unit Unit @relation(fields: [unitId], references: [id])
+    unitId Int
+    value Decimal
+    @@id([productId, recipeId])
+  }
 
-model Recipe {
-  id Int @id @default(autoincrement())
-  name String @db.VarChar(100)
-  description String @db.VarChar(255) @default("")
-  defaultServingCount Int?
-  source String?
-  pictureUrl String?
-  recipeProduct RecipeProduct[]
-  recipeSteps Step[]
-}
+  model Recipe {
+    id Int @id @default(autoincrement())
+    name String @db.VarChar(100)
+    description String @db.VarChar(255) @default("")
+    defaultServingCount Int?
+    source String?
+    pictureUrl String?
+    recipeProduct RecipeProduct[]
+    recipeSteps Step[]
+    planGroupMeals PlanGroupMeal[]
+  }
 
-model Unit {
-  id Int @id @default(autoincrement())
-  measurement String
-  recipeProduct RecipeProduct[]
-}
+  model Unit {
+    id Int @id @default(autoincrement())
+    measurement String
+    recipeProduct RecipeProduct[]
+    planProduct PlanProduct[]
+  }
 
-model Step {
-  id Int @id @default(autoincrement())
-  title String?
-  description String?
-  recipe Recipe @relation(fields: [recipeId], references: [id])
-  recipeId Int
-}
+  model Step {
+    id Int @id @default(autoincrement())
+    title String?
+    description String?
+    recipe Recipe @relation(fields: [recipeId], references: [id])
+    recipeId Int
+  }
+
+  model Plan {
+    id Int @id @default(autoincrement())
+    name String
+    planProducts PlanProduct[]
+    planGroups PlanGroup[]
+  }
+
+  model PlanProduct {
+    product Product @relation(fields: [productId], references: [id])
+    productId Int
+    unit Unit @relation(fields: [unitId], references: [id])
+    unitId Int
+    value Decimal
+    plan Plan @relation(fields: [planId], references: [id])
+    planId Int
+    @@id([productId, planId])
+  }
+
+  model PlanGroup {
+    id Int @id @default(autoincrement())
+    name String
+    plan Plan @relation(fields: [planId], references: [id])
+    planId Int
+    planGroupMeals PlanGroupMeal[]
+  }
+
+  model PlanGroupMeal {
+    id Int @id @default(autoincrement())
+    name String
+    planGroup PlanGroup @relation(fields: [planGroupId], references: [id])
+    planGroupId Int
+    recipe Recipe @relation(fields: [recipeId], references: [id])
+    recipeId Int
+  }

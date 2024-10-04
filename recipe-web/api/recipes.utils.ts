@@ -15,7 +15,7 @@ export const mapRecipeToRecipeDto = (recipe: Recipe): RecipeDto => {
     recipeProduct: recipe.ingredients.map((ingredient: Ingredient) => ({
       unitId: Number.parseInt(ingredient.unit),
       productId: Number.parseInt(ingredient.value),
-      count: ingredient.count
+      value: ingredient.count
     })),
     recipeSteps: recipe.steps.map((step: Step) => ({
       title: 'title',

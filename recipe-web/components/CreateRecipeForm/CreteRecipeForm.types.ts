@@ -8,7 +8,8 @@ export interface Step {
   description: string;
 }
 
-export interface Recipe {
+export interface RecipeForm {
+  id: number;
   name: string;
   description: string;
   defaultServingCount: number;
@@ -31,7 +32,7 @@ export interface RecipeDto {
 interface RecipeProduct {
   productId: number;
   unitId: number;
-  count: number;
+  value: number;
 }
 
 interface StepDto {

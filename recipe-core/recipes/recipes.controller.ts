@@ -4,10 +4,10 @@ import * as recipeService from './recipes.service';
 import { CreateRecipeRequest, GetRecipeResponse, RecipeDto } from './recipes.types';
 const router = express.Router();
 
-router.get('/:recipeId', async (req: Request, res: Response<GetRecipeResponse>) => {
+router.get('/:recipeId', async (req: Request, res: Response<Recipe>) => {
   const recipeId = req.params.recipeId;
   const recipe = await recipeService.getRecipe(parseInt(recipeId)); 
-  res.json({ recipe });
+  res.json(recipe as Recipe);
 })
 
 router.get('/', async (req: Request, res: Response<Recipe[]>) => {
@@ -17,21 +17,7 @@ router.get('/', async (req: Request, res: Response<Recipe[]>) => {
 
 router.post('/', async (req: Request<CreateRecipeRequest>, res: Response) => {
   const request = req.body.recipe;
-  const recipe: RecipeDto = {
-    name: request.name,
-    description: request.description,
-    defaultServingCount: request.defaultServingCount,
-    source: request.source,
-    pictureUrl: request.pictureUrl,
-    recipeProduct: request.recipeProduct.map((ingredient: any) => ({
-      value: ingredient.count,
-      productId: ingredient.productId,
-      unitId: ingredient.unitId
-    })),
-    recipeSteps: request.recipeSteps || []
-  }
-
-  const savedRecipe = await recipeService.saveRecipe(recipe);
+  const savedRecipe = await recipeService.saveRecipe(request);
   res.json(savedRecipe);
 })
 
@@ -40,6 +26,20 @@ router.delete('/:recipeId', async (req: Request, res: Response<Recipe>) => {
   const recipe = await recipeService.deleteRecipe(parseInt(recipeId));
 
   res.json(recipe);
+})
+
+/**
+ * @swagger
+ * /recipes/convert:
+ *   post:
+ *     summary: Returns a greeting message
+ *     responses:
+ *       200:
+ *         description: A greeting message
+ */
+router.post('/convert', async (req: Request, res: Response) => {
+  const convertResult = await recipeService.convertRecipe();
+  res.json(convertResult);
 })
 
 export default router;

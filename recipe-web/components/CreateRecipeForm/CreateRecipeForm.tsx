@@ -2,7 +2,7 @@ import classNames from "classnames/bind"
 import styles from "./CreateRecipeForm.module.scss"
 import {Controller, useFieldArray, useForm} from "react-hook-form";
 import {Autocomplete, TextField} from "@mui/material";
-import {Recipe} from "./CreteRecipeForm.types";
+import {RecipeForm} from "./CreteRecipeForm.types";
 import { createRecipe } from "../../api/recipes.service";
 import Button from "../Button/Button";
 import {Unit} from "../../types/unit.types";
@@ -33,7 +33,7 @@ const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFo
   });
 
   const onSubmit = (data: any) => {
-    const recipe: Recipe = {
+    const recipe: RecipeForm = {
       ...data,
       defaultServingCount: Number.parseInt(data.defaultServingCount),
       ingredients: data.ingredients.map((ingredient: any) => ({
@@ -69,7 +69,8 @@ const CreateRecipeForm: React.FC<CreateRecipeFormProps> = (props: CreateRecipeFo
                           {...field}
                           disablePortal
                           id="ingredients"
-                          onChange={(_, data) => field.onChange(data.id)}
+                          onChange={(_, data) => field.onChange(data)}
+                          value={field.value || null}
                           options={products.map(product => ({
                             id: product.id,
                             label: product.name
